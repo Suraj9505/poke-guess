@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Poke Guess",
+  "name": "Gotta Guess 'Em All!",
   "icons": [
     {
       "src": "favicon.ico",
