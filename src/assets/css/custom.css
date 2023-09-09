@@ -1,0 +1,81 @@
+/* ---------------------------------- variables ---------------------------------------------*/
+:root {
+  --bg-dark: #1e1e1e;
+  --red: #fb1b1b;
+  --blue: #0075be;
+  --dark-blue: #0a285f;
+  --yellow: #ffcc00;
+  --dark-yellow: #d5a100;
+  --fire-gradiant: linear-gradient(45deg, #ffed00, #ff6600, #ff0000);
+}
+
+/* ------------------------ main content home page ---------------------------------------- */
+body {
+  background-color: var(--bg-dark);
+  color: #dfdfdf;
+}
+.text-firey {
+  background: var(--fire-gradiant);
+  background-clip: text;
+  /* background-clip: unset; */
+  color: transparent !important;
+}
+.text-secondary {
+  color: var(--blue) !important;
+}
+/* .main-content {
+  background-color: var(--bg-dark);
+} */
+
+.logo {
+  filter: drop-shadow(5px 15px 4px var(--yellow));
+}
+
+.how-to-title {
+  font-size: 4rem;
+  -webkit-text-stroke: 2px var(--dark-yellow);
+}
+
+.instruction-steps {
+  margin: 2rem 13rem;
+}
+
+.instruction-steps ol {
+  margin-bottom: 2rem;
+}
+
+li::before {
+  color: var(--dark-yellow);
+}
+
+li::marker {
+  color: var(--yellow);
+}
+
+li {
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  background-color: inherit !important;
+  border: none !important;
+  color: inherit !important;
+}
+
+.text-primary {
+  color: var(--red) !important;
+}
+
+.pokeball {
+  width: 40px;
+  height: 40px;
+}
+
+/* -------------------------------------- scrollbar -------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 2px;
+}
