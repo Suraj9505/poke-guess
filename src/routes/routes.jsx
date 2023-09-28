@@ -1,7 +1,7 @@
 import React from "react";
 
-import Home from "../assets/views/home";
-import Game from "../assets/views/game";
+import Home from "../views/home";
+import Game from "../views/game";
 
 import DefaultLayouts from "../assets/components/layouts/default-layouts";
 

@@ -2,11 +2,12 @@ import React, { Fragment, memo } from "react";
 
 import { Link } from "react-router-dom";
 
-import logo from "../images/logo-full.png";
-import pokeball from "../images/pokeball.png";
-import greatball from "../images/great-ball.png";
-import masterball from "../images/master-ball.png";
-import ultraball from "../images/ultra-ball.png";
+//images
+import logo from "../assets/images/logo-full.png";
+import pokeball from "../assets/images/pokeball.png";
+import greatball from "../assets/images/great-ball.png";
+import masterball from "../assets/images/master-ball.png";
+import ultraball from "../assets/images/ultra-ball.png";
 
 import { Button } from "react-bootstrap";
 
@@ -37,7 +38,7 @@ const Home = memo(() => {
               <ol className="list-group list-group-numbered">
                 <h3 className="text-primary">Step 2: Initial Guess</h3>
                 <li className="list-group-item">
-                  You start with 5 chances to guess the Pokémon correctly.
+                  You start with 7 chances to guess the Pokémon correctly.
                 </li>
                 <li className="list-group-item">
                   Make your first guess by typing the name of a Pokémon into the
@@ -125,10 +126,10 @@ const Home = memo(() => {
                     Continue guessing Pokémon names based on the hints provided.
                   </li>
                   <li className="ms-3 mt-3 mb-2">
-                    You have a total of 5 chances to guess the correct Pokémon.
+                    You have a total of 7 chances to guess the correct Pokémon.
                   </li>
                   <li className="ms-3 mt-3 mb-2">
-                    If you exhaust all 5 chances without guessing correctly, the
+                    If you exhaust all 7 chances without guessing correctly, the
                     game will reveal the Pokémon's identity.
                   </li>
                 </ul>
