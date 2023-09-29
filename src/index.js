@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import "./assets/css/custom.css";
+import "./assets/css/type.css";
 
 import { IndexRoutes } from "./routes";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

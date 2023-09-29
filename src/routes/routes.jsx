@@ -3,12 +3,12 @@ import React from "react";
 import Home from "../views/home";
 import Game from "../views/game";
 
-import DefaultLayouts from "../assets/components/layouts/default-layouts";
+import DefaultLayouts from "../components/layouts/default-layouts";
 
 export const DefaultRoutes = [
   {
     path: "/",
-    // element: <DefaultLayouts />,
+    element: <DefaultLayouts />,
     children: [
       {
         path: "/",

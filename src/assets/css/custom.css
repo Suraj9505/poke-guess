@@ -7,6 +7,7 @@
   --yellow: #ffcc00;
   --dark-yellow: #d5a100;
   --fire-gradiant: linear-gradient(45deg, #ffed00, #ff6600, #ff0000);
+  --bs-body-bg: #313131;
 }
 
 /* ------------------------ main content home page ---------------------------------------- */
@@ -78,4 +79,16 @@ li {
 ::-webkit-scrollbar-thumb {
   background-color: var(--blue);
   border-radius: 2px;
+}
+
+.form-control {
+  border-color: #a09d9d;
+}
+
+.form-control::placeholder {
+  color: #a09d9d;
+}
+.form-control:focus {
+  border-color: #a09d9d;
+  box-shadow: 0 0 0 0.2rem rgba(160, 157, 157, 0.5);
 }

@@ -1,0 +1,79 @@
+.normal {
+  background-color: rgba(177, 177, 177, 1);
+}
+
+.fire {
+  background-color: rgba(255, 97, 6, 1);
+}
+
+.grass {
+  background-color: rgba(32, 255, 11, 1);
+}
+
+.electric {
+  background-color: rgb(255, 187, 0);
+}
+
+.ice {
+  background-color: rgba(80, 243, 255, 1);
+}
+
+.fighting {
+  background-color: rgba(230, 0, 0, 1);
+}
+
+.poison {
+  background-color: rgba(143, 0, 187, 1);
+}
+
+.ground {
+  background-color: rgba(170, 130, 0, 1);
+}
+
+.water {
+  background-color: rgba(57, 159, 255, 1);
+}
+
+.flying {
+  background-color: rgba(235, 81, 255, 1);
+}
+
+.psychic {
+  background-color: rgba(255, 46, 210, 1);
+}
+
+.bug {
+  background-color: rgba(156, 199, 0, 1);
+}
+
+.rock {
+  background-color: rgba(129, 84, 0, 1);
+}
+
+.ghost {
+  background-color: rgba(68, 0, 255, 1);
+}
+
+.dark {
+  background-color: rgba(43, 42, 41, 1);
+}
+
+.dragon {
+  background-color: rgba(119, 0, 255, 1);
+}
+
+.steel {
+  background-color: rgba(122, 109, 129, 1);
+}
+
+.fairy {
+  background-color: rgba(255, 140, 230, 1);
+}
+
+.types > button {
+  border-color: transparent;
+}
+
+.types > .btn {
+  pointer-events: none;
+}
