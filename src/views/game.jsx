@@ -14,8 +14,13 @@ const Game = memo(() => {
   const [guess, setGuess] = useState(null);
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
-  const [totalGuess, setTotalGuess] = useState(7);
   const [value, setValue] = useState("");
+  const [pokeType1, setPokeType1] = useState("");
+  const [pokeType2, setPokeType2] = useState("none");
+  const [guessType1, setGuessType1] = useState("");
+  const [guessType2, setGuessType2] = useState("none");
+
+  let totalGuess = 7;
 
   let index = useRef(Math.floor(Math.random() * 1017 + 1));
 
@@ -37,6 +42,12 @@ const Game = memo(() => {
         if (pokeData.ok) {
           const pokeDataResult = await pokeData.json();
           setPokemon(pokeDataResult);
+
+          //storing types
+          setPokeType1(pokeDataResult.types[0].type.name);
+          if (pokeDataResult.types.length > 1) {
+            setPokeType2(pokeDataResult.types[1].type.name);
+          }
         } else {
           console.error("Something went Wrong!!!!");
         }
@@ -44,6 +55,7 @@ const Game = memo(() => {
         console.error("Error while fetching data:", error);
       }
     };
+
     fetchData();
   }, []);
 
@@ -55,6 +67,12 @@ const Game = memo(() => {
       if (guessedData.ok) {
         const guessDataResult = await guessedData.json();
         setGuess(guessDataResult);
+
+        //storing types of guessed pokemon
+        setGuessType1(guessDataResult.types[0].type.name);
+        if (guessDataResult.types.length > 1) {
+          setGuessType2(guessDataResult.types[1].type.name);
+        }
       } else {
         setError("This is not a Pokemon!!");
       }
@@ -72,13 +90,18 @@ const Game = memo(() => {
     }
 
     setVisible(true);
+    totalGuess--;
   };
 
-  console.log("hi", pokeGeneration);
-
+  //taking input and setting the value
   const inputChange = (event) => {
     setValue(event.target.value);
     setError("");
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    guessedPokemon();
   };
 
   return (
@@ -96,14 +119,36 @@ const Game = memo(() => {
           <p className="align-self-center">You have {totalGuess} guess left</p>
         )}
         {visible && (
-          <Guess
-            pokemon={pokemon}
-            guess={guess}
-            pokeGeneration={pokeGeneration}
-            guessGeneration={guessGeneration}
-          />
+          <div className="d-flex flex-column w-100 justify-content-center">
+            <div className="d-flex justify-content-center align-items-center">
+              <p className="text-capitalize m-3 align-self-center">gen</p>
+              <p className="text-capitalize m-3 align-self-center">type 1</p>
+              <p className="text-capitalize m-3 align-self-center">type 2</p>
+              <p className="text-capitalize m-3 align-self-center">weight</p>
+              <p className="text-capitalize m-3 align-self-center">height</p>
+              {/* <p className="text-capitalize m-3 ms-5 align-self-center">
+                guess
+              </p>
+              <p className="text-capitalize m-3 ms-4 align-self-center">
+                pokemon
+              </p> */}
+            </div>
+            <Guess
+              pokemon={pokemon}
+              guess={guess}
+              pokeGeneration={pokeGeneration}
+              guessGeneration={guessGeneration}
+              pokeType1={pokeType1}
+              pokeType2={pokeType2}
+              guessType1={guessType1}
+              guessType2={guessType2}
+            />
+          </div>
         )}
-        <div className="d-flex justify-content-center mt-5">
+        <form
+          onSubmit={handleSubmit}
+          className="d-flex justify-content-center mt-5"
+        >
           <InputGroup className="w-50">
             <input
               className="form-control text-white"
@@ -112,10 +157,10 @@ const Game = memo(() => {
               onChange={inputChange}
             />
           </InputGroup>
-          <Button variant="secondary" onClick={guessedPokemon}>
+          <Button type="submit" variant="secondary">
             Submit
           </Button>
-        </div>
+        </form>
         <p className="text-danger">{error}</p>
 
         <TypeComponent />
