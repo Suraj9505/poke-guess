@@ -5,7 +5,7 @@ import { Button, InputGroup } from "react-bootstrap";
 
 //images
 import TypeComponent from "../components/type-component";
-import Guess from "./guess";
+import Guess from "../components/guess";
 
 const Game = memo(() => {
   const [pokemon, setPokemon] = useState(null);
@@ -19,26 +19,20 @@ const Game = memo(() => {
   const [pokeType2, setPokeType2] = useState("none");
   const [guessType1, setGuessType1] = useState("");
   const [guessType2, setGuessType2] = useState("none");
-
-  let totalGuess = 7;
+  const [all, setAll] = useState([]);
+  const [attempts, setAttempts] = useState(7);
+  const [guessHistory, setGuessHistory] = useState([]);
 
   let index = useRef(Math.floor(Math.random() * 1017 + 1));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const pokeData = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${index.current}`
-        );
-        const pokeGen = await fetch(
-          `https://pokeapi.co/api/v2/pokemon-species/${index.current}`
-        );
-        if (pokeGen.ok) {
-          const pokeGenResult = await pokeGen.json();
-          setPokeGeneration(pokeGenResult.generation.name);
-        } else {
-          console.error("something went wrong!!!!");
-        }
+        let allNames = [];
+        let url = "https://pokeapi.co/api/v2/pokemon/";
+
+        const pokeData = await fetch(`${url}${index.current}`);
+
         if (pokeData.ok) {
           const pokeDataResult = await pokeData.json();
           setPokemon(pokeDataResult);
@@ -51,6 +45,34 @@ const Game = memo(() => {
         } else {
           console.error("Something went Wrong!!!!");
         }
+        //first api call end
+
+        // second api call start
+        const pokeGen = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/${index.current}`
+        );
+        if (pokeGen.ok) {
+          const pokeGenResult = await pokeGen.json();
+          setPokeGeneration(pokeGenResult.generation.name);
+        } else {
+          console.error("something went wrong!!!!");
+        }
+        //second api call end
+
+        //third api call start
+        while (url) {
+          const allPokemon = await fetch(`${url}`);
+          if (allPokemon.ok) {
+            const result = await allPokemon.json();
+            const names = result.results.map((pokemon) => pokemon.name);
+            allNames = [...allNames, ...names];
+            url = result.next;
+          } else {
+            console.error("Something went wrong");
+            break;
+          }
+        }
+        setAll(allNames);
       } catch (error) {
         console.error("Error while fetching data:", error);
       }
@@ -74,7 +96,7 @@ const Game = memo(() => {
           setGuessType2(guessDataResult.types[1].type.name);
         }
       } else {
-        setError("This is not a Pokemon!!");
+        console.error("something went wrong!!!!");
       }
     } catch (error) {
       console.error("Error while fetching data:", error);
@@ -90,7 +112,6 @@ const Game = memo(() => {
     }
 
     setVisible(true);
-    totalGuess--;
   };
 
   //taking input and setting the value
@@ -101,7 +122,13 @@ const Game = memo(() => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    guessedPokemon();
+    if (all.includes(value)) {
+      guessedPokemon();
+      setAttempts(attempts - 1);
+      setGuessHistory([...guessHistory, value]);
+    } else {
+      setError("This is not a pokemon!!!");
+    }
   };
 
   return (
@@ -111,12 +138,10 @@ const Game = memo(() => {
           I am thinking of a pokemon, can you guess that pokemon?
         </h5>
         <br />
-        {totalGuess > 1 ? (
-          <p className="align-self-center">
-            You have {totalGuess} guesses left
-          </p>
+        {attempts > 1 ? (
+          <p className="align-self-center">You have {attempts} guesses left</p>
         ) : (
-          <p className="align-self-center">You have {totalGuess} guess left</p>
+          <p className="align-self-center">You have {attempts} guess left</p>
         )}
         {visible && (
           <div className="d-flex flex-column w-100 justify-content-center">
@@ -133,7 +158,22 @@ const Game = memo(() => {
                 pokemon
               </p> */}
             </div>
-            <Guess
+            {guessHistory.map((item, index) => (
+              <div className="mb-3">
+                <Guess
+                  key={index}
+                  pokemon={pokemon}
+                  guess={guess}
+                  pokeGeneration={pokeGeneration}
+                  guessGeneration={guessGeneration}
+                  pokeType1={pokeType1}
+                  pokeType2={pokeType2}
+                  guessType1={guessType1}
+                  guessType2={guessType2}
+                />
+              </div>
+            ))}
+            {/* <Guess
               pokemon={pokemon}
               guess={guess}
               pokeGeneration={pokeGeneration}
@@ -142,7 +182,7 @@ const Game = memo(() => {
               pokeType2={pokeType2}
               guessType1={guessType1}
               guessType2={guessType2}
-            />
+            /> */}
           </div>
         )}
         <form
@@ -161,7 +201,7 @@ const Game = memo(() => {
             Submit
           </Button>
         </form>
-        <p className="text-danger">{error}</p>
+        <p className="text-danger align-self-center mt-3">{error}</p>
 
         <TypeComponent />
       </div>
