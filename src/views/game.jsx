@@ -21,7 +21,12 @@ const Game = memo(() => {
   const [guessType2, setGuessType2] = useState("none");
   const [all, setAll] = useState([]);
   const [attempts, setAttempts] = useState(7);
-  const [guessHistory, setGuessHistory] = useState([]);
+  const [match, setMatch] = useState([]);
+  const [unmatch, setUnmatch] = useState([]);
+  const [showTypeComponent, setShowTypeComponent] = useState(true);
+
+  console.log("match", match);
+  console.log("unmatch", unmatch);
 
   let index = useRef(Math.floor(Math.random() * 1017 + 1));
 
@@ -81,6 +86,7 @@ const Game = memo(() => {
     fetchData();
   }, []);
 
+  //calling api to get the data for guessed pokemon
   const guessedPokemon = async () => {
     try {
       const guessedData = await fetch(
@@ -107,11 +113,28 @@ const Game = memo(() => {
     if (guessGen.ok) {
       const guessGenResult = await guessGen.json();
       setGuessGeneration(guessGenResult.generation.name);
+      //for hinting type
+      if (guess !== null) {
+        if (pokeType1 === guessType1 || pokeType2 === guessType1) {
+          if (pokeType1 === guessType2 || pokeType2 === guessType2) {
+            setMatch([...match, guessType2]);
+          } else {
+            setUnmatch([...unmatch, guessType2]);
+            setMatch([...match, guessType1]);
+          }
+        } else if (pokeType1 === guessType2 || pokeType2 === guessType2) {
+          setMatch([...match, guessType2]);
+          setUnmatch([...unmatch, guessType1]);
+        } else {
+          setUnmatch([...unmatch, guessType1, guessType2]);
+        }
+      }
     } else {
       console.error("something went wrongssada!!!!");
     }
 
     setVisible(true);
+    setShowTypeComponent(true);
   };
 
   //taking input and setting the value
@@ -125,7 +148,6 @@ const Game = memo(() => {
     if (all.includes(value)) {
       guessedPokemon();
       setAttempts(attempts - 1);
-      setGuessHistory([...guessHistory, value]);
     } else {
       setError("This is not a pokemon!!!");
     }
@@ -151,38 +173,19 @@ const Game = memo(() => {
               <p className="text-capitalize m-3 align-self-center">type 2</p>
               <p className="text-capitalize m-3 align-self-center">weight</p>
               <p className="text-capitalize m-3 align-self-center">height</p>
-              {/* <p className="text-capitalize m-3 ms-5 align-self-center">
-                guess
-              </p>
-              <p className="text-capitalize m-3 ms-4 align-self-center">
-                pokemon
-              </p> */}
             </div>
-            {guessHistory.map((item, index) => (
-              <div className="mb-3">
-                <Guess
-                  key={index}
-                  pokemon={pokemon}
-                  guess={guess}
-                  pokeGeneration={pokeGeneration}
-                  guessGeneration={guessGeneration}
-                  pokeType1={pokeType1}
-                  pokeType2={pokeType2}
-                  guessType1={guessType1}
-                  guessType2={guessType2}
-                />
-              </div>
-            ))}
-            {/* <Guess
-              pokemon={pokemon}
-              guess={guess}
-              pokeGeneration={pokeGeneration}
-              guessGeneration={guessGeneration}
-              pokeType1={pokeType1}
-              pokeType2={pokeType2}
-              guessType1={guessType1}
-              guessType2={guessType2}
-            /> */}
+            <div className="mb-3">
+              <Guess
+                pokemon={pokemon}
+                guess={guess}
+                pokeGeneration={pokeGeneration}
+                guessGeneration={guessGeneration}
+                pokeType1={pokeType1}
+                pokeType2={pokeType2}
+                guessType1={guessType1}
+                guessType2={guessType2}
+              />
+            </div>
           </div>
         )}
         <form
@@ -203,7 +206,13 @@ const Game = memo(() => {
         </form>
         <p className="text-danger align-self-center mt-3">{error}</p>
 
-        <TypeComponent />
+        {showTypeComponent && (
+          <TypeComponent
+            matched={match}
+            unmatch={unmatch}
+            types={[pokeType1, pokeType2]}
+          />
+        )}
       </div>
     </Fragment>
   );
