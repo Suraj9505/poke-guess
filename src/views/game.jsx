@@ -10,23 +10,18 @@ import Guess from "../components/guess";
 const Game = memo(() => {
   const [pokemon, setPokemon] = useState(null);
   const [pokeGeneration, setPokeGeneration] = useState(null);
-  const [guessGeneration, setGuessGeneration] = useState(null);
-  const [guess, setGuess] = useState(null);
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState("");
+  const [finalValue, setFinalValue] = useState("");
   const [pokeType1, setPokeType1] = useState("");
   const [pokeType2, setPokeType2] = useState("none");
-  const [guessType1, setGuessType1] = useState("");
-  const [guessType2, setGuessType2] = useState("none");
   const [all, setAll] = useState([]);
   const [attempts, setAttempts] = useState(7);
   const [match, setMatch] = useState([]);
   const [unmatch, setUnmatch] = useState([]);
+  const [guessedValues, setGuessedValues] = useState([]);
   const [showTypeComponent, setShowTypeComponent] = useState(true);
-
-  console.log("match", match);
-  console.log("unmatch", unmatch);
 
   let index = useRef(Math.floor(Math.random() * 1017 + 1));
 
@@ -87,55 +82,6 @@ const Game = memo(() => {
   }, []);
 
   //calling api to get the data for guessed pokemon
-  const guessedPokemon = async () => {
-    try {
-      const guessedData = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${value}`
-      );
-      if (guessedData.ok) {
-        const guessDataResult = await guessedData.json();
-        setGuess(guessDataResult);
-
-        //storing types of guessed pokemon
-        setGuessType1(guessDataResult.types[0].type.name);
-        if (guessDataResult.types.length > 1) {
-          setGuessType2(guessDataResult.types[1].type.name);
-        }
-      } else {
-        console.error("something went wrong!!!!");
-      }
-    } catch (error) {
-      console.error("Error while fetching data:", error);
-    }
-    const guessGen = await fetch(
-      `https://pokeapi.co/api/v2/pokemon-species/${value}`
-    );
-    if (guessGen.ok) {
-      const guessGenResult = await guessGen.json();
-      setGuessGeneration(guessGenResult.generation.name);
-      //for hinting type
-      if (guess !== null) {
-        if (pokeType1 === guessType1 || pokeType2 === guessType1) {
-          if (pokeType1 === guessType2 || pokeType2 === guessType2) {
-            setMatch([...match, guessType2]);
-          } else {
-            setUnmatch([...unmatch, guessType2]);
-            setMatch([...match, guessType1]);
-          }
-        } else if (pokeType1 === guessType2 || pokeType2 === guessType2) {
-          setMatch([...match, guessType2]);
-          setUnmatch([...unmatch, guessType1]);
-        } else {
-          setUnmatch([...unmatch, guessType1, guessType2]);
-        }
-      }
-    } else {
-      console.error("something went wrongssada!!!!");
-    }
-
-    setVisible(true);
-    setShowTypeComponent(true);
-  };
 
   //taking input and setting the value
   const inputChange = (event) => {
@@ -146,8 +92,10 @@ const Game = memo(() => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (all.includes(value)) {
-      guessedPokemon();
       setAttempts(attempts - 1);
+      setVisible(true);
+      setFinalValue(value);
+      setGuessedValues((prevGuessedValues) => [...prevGuessedValues, value]);
     } else {
       setError("This is not a pokemon!!!");
     }
@@ -165,7 +113,7 @@ const Game = memo(() => {
         ) : (
           <p className="align-self-center">You have {attempts} guess left</p>
         )}
-        {visible && (
+        {guessedValues.length !== 0 ? (
           <div className="d-flex flex-column w-100 justify-content-center">
             <div className="d-flex justify-content-center align-items-center">
               <p className="text-capitalize m-3 align-self-center">gen</p>
@@ -174,19 +122,22 @@ const Game = memo(() => {
               <p className="text-capitalize m-3 align-self-center">weight</p>
               <p className="text-capitalize m-3 align-self-center">height</p>
             </div>
-            <div className="mb-3">
-              <Guess
-                pokemon={pokemon}
-                guess={guess}
-                pokeGeneration={pokeGeneration}
-                guessGeneration={guessGeneration}
-                pokeType1={pokeType1}
-                pokeType2={pokeType2}
-                guessType1={guessType1}
-                guessType2={guessType2}
-              />
-            </div>
+            {guessedValues.map((item, index) => {
+              return (
+                <div className="mb-3" key={index}>
+                  <Guess
+                    pokemon={pokemon}
+                    value={item}
+                    pokeGeneration={pokeGeneration}
+                    pokeType1={pokeType1}
+                    pokeType2={pokeType2}
+                  />
+                </div>
+              );
+            })}
           </div>
+        ) : (
+          ""
         )}
         <form
           onSubmit={handleSubmit}

@@ -37,7 +37,6 @@ const TypeComponent = memo((props) => {
             {type.results.slice(0, 18).map((item, index) => {
               const isMatched = props.matched.includes(item.name);
               const isDiabled = props.unmatch.includes(item.name);
-              console.log(props.types);
               return (
                 <Button
                   size="sm"
