@@ -6,9 +6,11 @@ import pokeball from "../assets/images/pokeball.png";
 import greatball from "../assets/images/great-ball.png";
 import masterball from "../assets/images/master-ball.png";
 import ultraball from "../assets/images/ultra-ball.png";
+import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
 const Guess = memo((props) => {
   const [guessGeneration, setGuessGeneration] = useState(null);
+  const [newGen, setNewGen] = useState(null);
   const [guess, setGuess] = useState(null);
   const [guessType1, setGuessType1] = useState("");
   const [guessType2, setGuessType2] = useState("none");
@@ -70,93 +72,166 @@ const Guess = memo((props) => {
   return (
     <Fragment>
       {guess !== null ? (
-        <div className="d-flex justify-content-center align-tems-center">
-          {guessGeneration === props.pokeGeneration ? (
-            <img
-              src={masterball}
-              alt="correct"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : guessGeneration > props.pokeGeneration ? (
-            <img
-              src={ultraball}
-              alt="guessed_too_high"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : (
-            <img
-              src={greatball}
-              alt="guess_too_low"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          )}
-          {guessType1 === props.pokeType1 ? (
-            <img
-              src={masterball}
-              alt="correct_guess"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : (
-            <img
-              src={pokeball}
-              alt="unmaatched"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          )}
-          {guessType2 === props.pokeType2 ? (
-            <img
-              src={masterball}
-              alt="correct_guess"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : (
-            <img
-              src={pokeball}
-              alt="unmaatched"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          )}
-          {guess.weight === props.pokemon.weight ? (
-            <img
-              src={masterball}
-              alt="correct_guess"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : guess.weight > props.pokemon.weight ? (
-            <img
-              src={ultraball}
-              alt="guess_is_higher"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : (
-            <img
-              src={greatball}
-              alt="guess_is_lower"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          )}
-          {guess.height === props.pokemon.height ? (
-            <img
-              src={masterball}
-              alt="correct_guess"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : guess.height > props.pokemon.height ? (
-            <img
-              src={ultraball}
-              alt="guess_is_higher"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          ) : (
-            <img
-              src={greatball}
-              alt="guess_is_lower"
-              className="img-fluid pokeball ms-3 me-4 align-self-center"
-            />
-          )}
-          {/* <p className="ms-3">{props.guess.species.name}</p>
-        <img src={props.guess.sprites.front_default} /> */}
-        </div>
+        <Fragment>
+          <Row className="justify-content-center align-items-center">
+            {guessGeneration === props.pokeGeneration ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={masterball}
+                  alt="correct"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : guessGeneration > props.pokeGeneration ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={ultraball}
+                  alt="guessed_too_high"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : (
+              <Col className="col-2 text-center">
+                <img
+                  src={greatball}
+                  alt="guess_too_low"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            )}
+            {guessType1 === props.pokeType1 ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={masterball}
+                  alt="correct_guess"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : (
+              <Col className="col-2 text-center">
+                <img
+                  src={pokeball}
+                  alt="unmaatched"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            )}
+            {guessType2 === props.pokeType2 ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={masterball}
+                  alt="correct_guess"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : (
+              <Col className="col-2 text-center">
+                <img
+                  src={pokeball}
+                  alt="unmaatched"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            )}
+            {guess.weight === props.pokemon.weight ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={masterball}
+                  alt="correct_guess"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : guess.weight > props.pokemon.weight ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={ultraball}
+                  alt="guess_is_higher"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : (
+              <Col className="col-2 text-center">
+                <img
+                  src={greatball}
+                  alt="guess_is_lower"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            )}
+            {guess.height === props.pokemon.height ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={masterball}
+                  alt="correct_guess"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : guess.height > props.pokemon.height ? (
+              <Col className="col-2 text-center">
+                <img
+                  src={ultraball}
+                  alt="guess_is_higher"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            ) : (
+              <Col className="col-2 text-center">
+                <img
+                  src={greatball}
+                  alt="guess_is_lower"
+                  className="img-fluid pokeball align-self-center"
+                />
+              </Col>
+            )}
+            <Col className="col-2 text-center">
+              <OverlayTrigger
+                placement="right"
+                overlay={
+                  <Tooltip>
+                    {guessGeneration ? (
+                      <Fragment>
+                        <div className="text-white text-capitalize mb-2">
+                          Gen :{" "}
+                          <span className="text-uppercase">
+                            {guessGeneration.replace("generation-", " ")}
+                          </span>
+                        </div>
+                        <div className="text-white text-capitalize mb-2">
+                          type 1 : <span> {guessType1}</span>
+                        </div>
+                        <div className="text-white text-capitalize mb-2">
+                          type 2 : <span> {guessType2}</span>
+                        </div>
+                        <div className="text-white text-capitalize mb-2">
+                          weight :{" "}
+                          <span className="text-lowercase">
+                            {" "}
+                            {guess.weight / 10} kg
+                          </span>
+                        </div>
+                        <div className="text-white text-capitalize mb-2">
+                          height :{" "}
+                          <span className="text-lowercase">
+                            {" "}
+                            {(guess.height * 10) / 100} m
+                          </span>
+                        </div>
+                      </Fragment>
+                    ) : (
+                      ""
+                    )}
+                  </Tooltip>
+                }
+              >
+                <img
+                  src={guess.sprites.front_default}
+                  className="img-fluid avatar-50"
+                />
+              </OverlayTrigger>
+            </Col>
+          </Row>
+          {/* <div className="border-bottom border-1"></div> */}
+        </Fragment>
       ) : (
         ""
       )}

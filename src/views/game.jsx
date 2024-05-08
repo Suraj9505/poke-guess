@@ -1,7 +1,7 @@
 import React, { memo, Fragment, useState, useEffect, useRef } from "react";
 
 //react-bootstrap
-import { Button, InputGroup } from "react-bootstrap";
+import { Button, Col, InputGroup, Row } from "react-bootstrap";
 
 //images
 import TypeComponent from "../components/type-component";
@@ -103,7 +103,7 @@ const Game = memo(() => {
 
   return (
     <Fragment>
-      <div className="d-flex flex-column justify-content-center">
+      <div className="d-flex flex-column justify-content-center align-items-center">
         <h5 className="align-self-center mt-5 ">
           I am thinking of a pokemon, can you guess that pokemon?
         </h5>
@@ -114,14 +114,45 @@ const Game = memo(() => {
           <p className="align-self-center">You have {attempts} guess left</p>
         )}
         {guessedValues.length !== 0 ? (
-          <div className="d-flex flex-column w-100 justify-content-center">
-            <div className="d-flex justify-content-center align-items-center">
-              <p className="text-capitalize m-3 align-self-center">gen</p>
-              <p className="text-capitalize m-3 align-self-center">type 1</p>
-              <p className="text-capitalize m-3 align-self-center">type 2</p>
-              <p className="text-capitalize m-3 align-self-center">weight</p>
-              <p className="text-capitalize m-3 align-self-center">height</p>
-            </div>
+          <div className="d-flex flex-column w-50 justify-content-center">
+            <Row className="justify-content-center my-4">
+              <Col
+                as="p"
+                className="text-capitalize text-center align-self-center col-2 mb-0"
+              >
+                gen
+              </Col>
+              <Col
+                as="p"
+                className="text-capitalize text-center align-self-center col-2 mb-0"
+              >
+                type 1
+              </Col>
+              <Col
+                as="p"
+                className="text-capitalize text-center align-self-center col-2 mb-0"
+              >
+                type 2
+              </Col>
+              <Col
+                as="p"
+                className="text-capitalize text-center align-self-center col-2 mb-0"
+              >
+                weight
+              </Col>
+              <Col
+                as="p"
+                className="text-capitalize text-center align-self-center col-2 mb-0"
+              >
+                height
+              </Col>
+              <Col
+                as="p"
+                className="text-capitalize text-center align-self-center col-2 mb-0"
+              >
+                guess
+              </Col>
+            </Row>
             {guessedValues.map((item, index) => {
               return (
                 <div className="mb-3" key={index}>
@@ -141,9 +172,9 @@ const Game = memo(() => {
         )}
         <form
           onSubmit={handleSubmit}
-          className="d-flex justify-content-center mt-5"
+          className="d-flex justify-content-center mt-5 w-50"
         >
-          <InputGroup className="w-50">
+          <InputGroup className="w-75">
             <input
               className="form-control text-white"
               placeholder="make your guess"
