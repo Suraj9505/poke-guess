@@ -22,6 +22,7 @@ const Game = memo(() => {
   const [unmatch, setUnmatch] = useState([]);
   const [guessedValues, setGuessedValues] = useState([]);
   const [showTypeComponent, setShowTypeComponent] = useState(true);
+  const [modal, setModal] = useState(false);
 
   let index = useRef(Math.floor(Math.random() * 1017 + 1));
 
@@ -96,9 +97,20 @@ const Game = memo(() => {
       setVisible(true);
       setFinalValue(value);
       setGuessedValues((prevGuessedValues) => [...prevGuessedValues, value]);
+      if (value === pokemon.name) {
+        setModal(true);
+      }
     } else {
       setError("This is not a pokemon!!!");
     }
+  };
+
+  if (pokemon !== null) {
+    console.log(pokemon.name);
+  }
+
+  const handleModal = () => {
+    setModal(!modal);
   };
 
   return (
@@ -161,7 +173,9 @@ const Game = memo(() => {
                     value={item}
                     pokeGeneration={pokeGeneration}
                     pokeType1={pokeType1}
+                    modal={modal}
                     pokeType2={pokeType2}
+                    handleModal={handleModal}
                   />
                 </div>
               );

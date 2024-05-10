@@ -6,15 +6,16 @@ import pokeball from "../assets/images/pokeball.png";
 import greatball from "../assets/images/great-ball.png";
 import masterball from "../assets/images/master-ball.png";
 import ultraball from "../assets/images/ultra-ball.png";
-import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Col, OverlayTrigger, Row, Tooltip, Modal } from "react-bootstrap";
 
 const Guess = memo((props) => {
   const [guessGeneration, setGuessGeneration] = useState(null);
-  const [newGen, setNewGen] = useState(null);
   const [guess, setGuess] = useState(null);
   const [guessType1, setGuessType1] = useState("");
   const [guessType2, setGuessType2] = useState("none");
+  const [gameOver, setGameOver] = useState(false);
 
+  console.log(props.modal);
   const guessedPokemon = async () => {
     try {
       const guessedData = await fetch(
@@ -71,7 +72,7 @@ const Guess = memo((props) => {
 
   return (
     <Fragment>
-      {guess !== null ? (
+      {guess !== null && !gameOver ? (
         <Fragment>
           <Row className="justify-content-center align-items-center">
             {guessGeneration === props.pokeGeneration ? (
@@ -232,9 +233,99 @@ const Guess = memo((props) => {
           </Row>
           {/* <div className="border-bottom border-1"></div> */}
         </Fragment>
+      ) : guess !== null && gameOver ? (
+        <Fragment>
+          <Col className="col-2 text-center">
+            <img
+              src={masterball}
+              alt="correct"
+              className="img-fluid pokeball align-self-center"
+            />
+          </Col>
+          <Col className="col-2 text-center">
+            <img
+              src={masterball}
+              alt="correct"
+              className="img-fluid pokeball align-self-center"
+            />
+          </Col>
+          <Col className="col-2 text-center">
+            <img
+              src={masterball}
+              alt="correct"
+              className="img-fluid pokeball align-self-center"
+            />
+          </Col>
+          <Col className="col-2 text-center">
+            <img
+              src={masterball}
+              alt="correct"
+              className="img-fluid pokeball align-self-center"
+            />
+          </Col>
+          <Col className="col-2 text-center">
+            <img
+              src={masterball}
+              alt="correct"
+              className="img-fluid pokeball align-self-center"
+            />
+          </Col>
+          <Col className="col-2 text-center">
+            <OverlayTrigger
+              placement="right"
+              overlay={
+                <Tooltip>
+                  {guessGeneration ? (
+                    <Fragment>
+                      <div className="text-white text-capitalize mb-2">
+                        Gen :{" "}
+                        <span className="text-uppercase">
+                          {guessGeneration.replace("generation-", " ")}
+                        </span>
+                      </div>
+                      <div className="text-white text-capitalize mb-2">
+                        type 1 : <span> {guessType1}</span>
+                      </div>
+                      <div className="text-white text-capitalize mb-2">
+                        type 2 : <span> {guessType2}</span>
+                      </div>
+                      <div className="text-white text-capitalize mb-2">
+                        weight :{" "}
+                        <span className="text-lowercase">
+                          {" "}
+                          {guess.weight / 10} kg
+                        </span>
+                      </div>
+                      <div className="text-white text-capitalize mb-2">
+                        height :{" "}
+                        <span className="text-lowercase">
+                          {" "}
+                          {(guess.height * 10) / 100} m
+                        </span>
+                      </div>
+                    </Fragment>
+                  ) : (
+                    ""
+                  )}
+                </Tooltip>
+              }
+            >
+              <img
+                src={guess.sprites.front_default}
+                className="img-fluid avatar-50"
+              />
+            </OverlayTrigger>
+          </Col>
+        </Fragment>
       ) : (
         ""
       )}
+
+      <Modal show={props.modal} onHide={props.handleModal}>
+        <Modal.Header>
+          <Modal.Title>You Won</Modal.Title>
+        </Modal.Header>
+      </Modal>
     </Fragment>
   );
 });
