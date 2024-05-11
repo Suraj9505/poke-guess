@@ -8,11 +8,9 @@ import "./assets/css/custom.css";
 import "./assets/css/type.css";
 
 import { IndexRoutes } from "./routes";
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const router = createHashRouter([...IndexRoutes], {
-  basename: process.env.PUBLIC_URL,
-});
+const router = createBrowserRouter([...IndexRoutes]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
