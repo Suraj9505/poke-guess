@@ -8,9 +8,9 @@ import "./assets/css/custom.css";
 import "./assets/css/type.css";
 
 import { IndexRoutes } from "./routes";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
-const router = createBrowserRouter([...IndexRoutes], {
+const router = createHashRouter([...IndexRoutes], {
   basename: process.env.PUBLIC_URL,
 });
 
