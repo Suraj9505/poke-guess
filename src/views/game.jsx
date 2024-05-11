@@ -125,8 +125,8 @@ const Game = memo(() => {
           <p className="align-self-center">You have {attempts} guess left</p>
         )}
         {guessedValues.length !== 0 ? (
-          <div className="d-flex flex-column w-50 justify-content-center">
-            <Row className="justify-content-center my-4">
+          <div className="d-flex flex-column w-50 justify-content-center guess-container">
+            <Row className="justify-content-center my-4 guess-hint">
               <Col
                 as="p"
                 className="text-capitalize text-center align-self-center col-2 mb-0"
@@ -187,7 +187,7 @@ const Game = memo(() => {
           <Fragment>
             <form
               onSubmit={handleSubmit}
-              className="d-flex justify-content-center mt-5 w-50"
+              className="d-flex justify-content-center mt-5 w-50 guess-input"
             >
               <InputGroup className="w-75">
                 <input
@@ -210,6 +210,7 @@ const Game = memo(() => {
             <h6>The pokemon is:</h6>
             <img
               height={250}
+              className="reveal-pokemon"
               src={`${pokemon.sprites.other.home.front_default}`}
               alt="pokemon"
             />
@@ -222,6 +223,7 @@ const Game = memo(() => {
             <h6>The correct pokemon was: </h6>
             <img
               height={250}
+              className="reveal-pokemon"
               src={`${pokemon.sprites.other.home.front_default}`}
               alt="correct_pokemon"
               loading="lazy"

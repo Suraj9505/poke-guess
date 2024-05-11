@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/poke-guess/build/static/css/main.4b16e7f3.css",
-    "main.js": "/poke-guess/build/static/js/main.68afb2ed.js",
+    "main.css": "/poke-guess/build/static/css/main.7f919ab8.css",
+    "main.js": "/poke-guess/build/static/js/main.b70a91aa.js",
     "static/js/787.afe08cfe.chunk.js": "/poke-guess/build/static/js/787.afe08cfe.chunk.js",
     "static/media/master-ball.png": "/poke-guess/build/static/media/master-ball.2bdc00182ae17470d2c4.png",
     "static/media/great-ball.png": "/poke-guess/build/static/media/great-ball.768b0bc5a7f636eb2ab6.png",
@@ -9,12 +9,12 @@
     "static/media/logo-full.png": "/poke-guess/build/static/media/logo-full.8fa56c0a768b2809ce4f.png",
     "static/media/ultra-ball.png": "/poke-guess/build/static/media/ultra-ball.48723da7229d2c24baaf.png",
     "index.html": "/poke-guess/build/index.html",
-    "main.4b16e7f3.css.map": "/poke-guess/build/static/css/main.4b16e7f3.css.map",
-    "main.68afb2ed.js.map": "/poke-guess/build/static/js/main.68afb2ed.js.map",
+    "main.7f919ab8.css.map": "/poke-guess/build/static/css/main.7f919ab8.css.map",
+    "main.b70a91aa.js.map": "/poke-guess/build/static/js/main.b70a91aa.js.map",
     "787.afe08cfe.chunk.js.map": "/poke-guess/build/static/js/787.afe08cfe.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4b16e7f3.css",
-    "static/js/main.68afb2ed.js"
+    "static/css/main.7f919ab8.css",
+    "static/js/main.b70a91aa.js"
   ]
 }
