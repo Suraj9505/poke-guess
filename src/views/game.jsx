@@ -23,6 +23,7 @@ const Game = memo(() => {
   const [guessedValues, setGuessedValues] = useState([]);
   const [showTypeComponent, setShowTypeComponent] = useState(true);
   const [modal, setModal] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
 
   let index = useRef(Math.floor(Math.random() * 1017 + 1));
 
@@ -93,12 +94,14 @@ const Game = memo(() => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (all.includes(value)) {
-      setAttempts(attempts - 1);
       setVisible(true);
       setFinalValue(value);
       setGuessedValues((prevGuessedValues) => [...prevGuessedValues, value]);
       if (value === pokemon.name) {
         setModal(true);
+        setGameWon(true);
+      } else {
+        setAttempts(attempts - 1);
       }
     } else {
       setError("This is not a pokemon!!!");
@@ -184,23 +187,54 @@ const Game = memo(() => {
         ) : (
           ""
         )}
-        <form
-          onSubmit={handleSubmit}
-          className="d-flex justify-content-center mt-5 w-50"
-        >
-          <InputGroup className="w-75">
-            <input
-              className="form-control text-white"
-              placeholder="make your guess"
-              value={value}
-              onChange={inputChange}
+        {!gameWon && attempts > 0 ? (
+          <Fragment>
+            <form
+              onSubmit={handleSubmit}
+              className="d-flex justify-content-center mt-5 w-50"
+            >
+              <InputGroup className="w-75">
+                <input
+                  className="form-control text-white"
+                  placeholder="make your guess"
+                  value={value}
+                  onChange={inputChange}
+                />
+              </InputGroup>
+              <Button type="submit" variant="secondary">
+                Submit
+              </Button>
+            </form>
+            <p className="text-danger align-self-center mt-3">{error}</p>
+          </Fragment>
+        ) : gameWon && attempts >= 0 ? (
+          <Fragment>
+            <h2 className="text-success fw-900">Congratulations!!</h2>
+            <h5>You Won!!!</h5>
+            <h6>The pokemon is:</h6>
+            <img
+              height={250}
+              src={`${pokemon.sprites.other.home.front_default}`}
+              alt="pokemon"
             />
-          </InputGroup>
-          <Button type="submit" variant="secondary">
-            Submit
-          </Button>
-        </form>
-        <p className="text-danger align-self-center mt-3">{error}</p>
+            <h6 className="text-firey">{pokemon.name}</h6>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <h2 className="text-danger">Sorry!!</h2>
+            <h5>You Lost</h5>
+            <h6>The correct pokemon was: </h6>
+            <img
+              height={250}
+              src={`${pokemon.sprites.other.home.front_default}`}
+              alt="correct_pokemon"
+              loading="lazy"
+            />
+            <h6 className="text-capitalize text-firey h2 mt-3">
+              {pokemon.name}
+            </h6>
+          </Fragment>
+        )}
 
         {showTypeComponent && (
           <TypeComponent

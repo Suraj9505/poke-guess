@@ -6,7 +6,14 @@ import pokeball from "../assets/images/pokeball.png";
 import greatball from "../assets/images/great-ball.png";
 import masterball from "../assets/images/master-ball.png";
 import ultraball from "../assets/images/ultra-ball.png";
-import { Col, OverlayTrigger, Row, Tooltip, Modal } from "react-bootstrap";
+import {
+  Col,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+  Modal,
+  CloseButton,
+} from "react-bootstrap";
 
 const Guess = memo((props) => {
   const [guessGeneration, setGuessGeneration] = useState(null);
@@ -322,9 +329,10 @@ const Guess = memo((props) => {
       )}
 
       <Modal show={props.modal} onHide={props.handleModal}>
-        <Modal.Header>
-          <Modal.Title>You Won</Modal.Title>
-        </Modal.Header>
+        <Modal.Body>
+          <CloseButton onClick={props.handleModal} variant="white" />
+          <img src={`${props.pokemon.sprites.front_default}`} alt="hello" />
+        </Modal.Body>
       </Modal>
     </Fragment>
   );
