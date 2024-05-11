@@ -22,7 +22,6 @@ const Guess = memo((props) => {
   const [guessType2, setGuessType2] = useState("none");
   const [gameOver, setGameOver] = useState(false);
 
-  console.log(props.modal);
   const guessedPokemon = async () => {
     try {
       const guessedData = await fetch(
