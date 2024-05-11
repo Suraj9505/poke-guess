@@ -25,7 +25,7 @@ const Game = memo(() => {
   const [modal, setModal] = useState(false);
   const [gameWon, setGameWon] = useState(false);
 
-  let index = useRef(Math.floor(Math.random() * 1017 + 1));
+  let index = useRef(Math.floor(Math.random() * 1025 + 1));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,13 +93,21 @@ const Game = memo(() => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (all.includes(value)) {
+    if (all.includes(value.toLowerCase())) {
       setVisible(true);
       setFinalValue(value);
-      setGuessedValues((prevGuessedValues) => [...prevGuessedValues, value]);
-      if (value === pokemon.name) {
+      setGuessedValues((prevGuessedValues) => [
+        ...prevGuessedValues,
+        value.toLowerCase(),
+      ]);
+      if (value.toLowerCase() === pokemon.name) {
         setModal(true);
         setGameWon(true);
+        if (attempts > 0) {
+          setAttempts(attempts - 1);
+        } else {
+          setAttempts(0);
+        }
       } else {
         setAttempts(attempts - 1);
       }
@@ -107,6 +115,10 @@ const Game = memo(() => {
       setError("This is not a pokemon!!!");
     }
   };
+
+  if (pokemon !== null) {
+    console.log(pokemon.name);
+  }
 
   const handleModal = () => {
     setModal(!modal);
@@ -170,6 +182,7 @@ const Game = memo(() => {
                   <Guess
                     pokemon={pokemon}
                     value={item}
+                    specie={item.split("-mega")[0].split("-gmax")[0]}
                     pokeGeneration={pokeGeneration}
                     pokeType1={pokeType1}
                     modal={modal}

@@ -42,7 +42,7 @@ const Guess = memo((props) => {
       console.error("Error while fetching data:", error);
     }
     const guessGen = await fetch(
-      `https://pokeapi.co/api/v2/pokemon-species/${props.value}`
+      `https://pokeapi.co/api/v2/pokemon-species/${props.specie}`
     );
     if (guessGen.ok) {
       const guessGenResult = await guessGen.json();
