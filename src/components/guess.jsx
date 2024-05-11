@@ -20,7 +20,6 @@ const Guess = memo((props) => {
   const [guess, setGuess] = useState(null);
   const [guessType1, setGuessType1] = useState("");
   const [guessType2, setGuessType2] = useState("none");
-  const [gameOver, setGameOver] = useState(false);
 
   const guessedPokemon = async () => {
     try {
@@ -78,7 +77,7 @@ const Guess = memo((props) => {
 
   return (
     <Fragment>
-      {guess !== null && !gameOver ? (
+      {guess !== null ? (
         <Fragment>
           <Row className="justify-content-center align-items-center">
             {guessGeneration === props.pokeGeneration ? (
@@ -238,90 +237,6 @@ const Guess = memo((props) => {
             </Col>
           </Row>
           {/* <div className="border-bottom border-1"></div> */}
-        </Fragment>
-      ) : guess !== null && gameOver ? (
-        <Fragment>
-          <Col className="col-2 text-center">
-            <img
-              src={masterball}
-              alt="correct"
-              className="img-fluid pokeball align-self-center"
-            />
-          </Col>
-          <Col className="col-2 text-center">
-            <img
-              src={masterball}
-              alt="correct"
-              className="img-fluid pokeball align-self-center"
-            />
-          </Col>
-          <Col className="col-2 text-center">
-            <img
-              src={masterball}
-              alt="correct"
-              className="img-fluid pokeball align-self-center"
-            />
-          </Col>
-          <Col className="col-2 text-center">
-            <img
-              src={masterball}
-              alt="correct"
-              className="img-fluid pokeball align-self-center"
-            />
-          </Col>
-          <Col className="col-2 text-center">
-            <img
-              src={masterball}
-              alt="correct"
-              className="img-fluid pokeball align-self-center"
-            />
-          </Col>
-          <Col className="col-2 text-center">
-            <OverlayTrigger
-              placement="right"
-              overlay={
-                <Tooltip>
-                  {guessGeneration ? (
-                    <Fragment>
-                      <div className="text-white text-capitalize mb-2">
-                        Gen :{" "}
-                        <span className="text-uppercase">
-                          {guessGeneration.replace("generation-", " ")}
-                        </span>
-                      </div>
-                      <div className="text-white text-capitalize mb-2">
-                        type 1 : <span> {guessType1}</span>
-                      </div>
-                      <div className="text-white text-capitalize mb-2">
-                        type 2 : <span> {guessType2}</span>
-                      </div>
-                      <div className="text-white text-capitalize mb-2">
-                        weight :{" "}
-                        <span className="text-lowercase">
-                          {" "}
-                          {guess.weight / 10} kg
-                        </span>
-                      </div>
-                      <div className="text-white text-capitalize mb-2">
-                        height :{" "}
-                        <span className="text-lowercase">
-                          {" "}
-                          {(guess.height * 10) / 100} m
-                        </span>
-                      </div>
-                    </Fragment>
-                  ) : (
-                    ""
-                  )}
-                </Tooltip>
-              }
-            >
-              <img
-                src={guess.sprites.front_default}
-                className="img-fluid avatar-50"
-              />
-            </OverlayTrigger>
-          </Col>
         </Fragment>
       ) : (
         ""
