@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.4b16e7f3.css",
-    "main.js": "/static/js/main.1b279055.js",
-    "static/js/787.afe08cfe.chunk.js": "/static/js/787.afe08cfe.chunk.js",
-    "static/media/master-ball.png": "/static/media/master-ball.2bdc00182ae17470d2c4.png",
-    "static/media/great-ball.png": "/static/media/great-ball.768b0bc5a7f636eb2ab6.png",
-    "static/media/pokeball.png": "/static/media/pokeball.4b630f4de004fae3f667.png",
-    "static/media/logo-full.png": "/static/media/logo-full.8fa56c0a768b2809ce4f.png",
-    "static/media/ultra-ball.png": "/static/media/ultra-ball.48723da7229d2c24baaf.png",
-    "index.html": "/index.html",
-    "main.4b16e7f3.css.map": "/static/css/main.4b16e7f3.css.map",
-    "main.1b279055.js.map": "/static/js/main.1b279055.js.map",
-    "787.afe08cfe.chunk.js.map": "/static/js/787.afe08cfe.chunk.js.map"
+    "main.css": "/poke-guess/build/static/css/main.4b16e7f3.css",
+    "main.js": "/poke-guess/build/static/js/main.68afb2ed.js",
+    "static/js/787.afe08cfe.chunk.js": "/poke-guess/build/static/js/787.afe08cfe.chunk.js",
+    "static/media/master-ball.png": "/poke-guess/build/static/media/master-ball.2bdc00182ae17470d2c4.png",
+    "static/media/great-ball.png": "/poke-guess/build/static/media/great-ball.768b0bc5a7f636eb2ab6.png",
+    "static/media/pokeball.png": "/poke-guess/build/static/media/pokeball.4b630f4de004fae3f667.png",
+    "static/media/logo-full.png": "/poke-guess/build/static/media/logo-full.8fa56c0a768b2809ce4f.png",
+    "static/media/ultra-ball.png": "/poke-guess/build/static/media/ultra-ball.48723da7229d2c24baaf.png",
+    "index.html": "/poke-guess/build/index.html",
+    "main.4b16e7f3.css.map": "/poke-guess/build/static/css/main.4b16e7f3.css.map",
+    "main.68afb2ed.js.map": "/poke-guess/build/static/js/main.68afb2ed.js.map",
+    "787.afe08cfe.chunk.js.map": "/poke-guess/build/static/js/787.afe08cfe.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4b16e7f3.css",
-    "static/js/main.1b279055.js"
+    "static/js/main.68afb2ed.js"
   ]
 }

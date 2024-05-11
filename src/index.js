@@ -10,7 +10,9 @@ import "./assets/css/type.css";
 import { IndexRoutes } from "./routes";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const router = createBrowserRouter([...IndexRoutes]);
+const router = createBrowserRouter([...IndexRoutes], {
+  basename: process.env.PUBLIC_URL,
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
