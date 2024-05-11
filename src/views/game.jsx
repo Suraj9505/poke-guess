@@ -108,10 +108,6 @@ const Game = memo(() => {
     }
   };
 
-  if (pokemon !== null) {
-    console.log(pokemon.name);
-  }
-
   const handleModal = () => {
     setModal(!modal);
   };
